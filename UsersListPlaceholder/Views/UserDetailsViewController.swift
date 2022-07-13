@@ -14,17 +14,20 @@ class UserDetailsViewController: UIViewController {
     @IBOutlet private var email: UITextField!
     
     var user: UserUI?
-    
-//    convenience init(user: UserUI) {
-//        self.init()
-//        self.user = user
-//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupImageViewInitState()
+        bindUser()
+    }
+    
+    private func setupImageViewInitState() {
         imageView.layer.cornerRadius = imageView.frame.size.width / 2
         imageView.clipsToBounds = true
         imageView.backgroundColor = .gray
+    }
+    
+    func bindUser() {
         if let user = user {
             imageView.image = UIImage(data: user.image)
             name.text = user.name
