@@ -12,34 +12,19 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet private var spinner: UIActivityIndicatorView!
     @IBOutlet private var searchBar: UISearchBar!
     @IBOutlet private var tableView: UITableView!
-    private var users: [UserUI] = []
-    private let userPresenter = UsersPresenter()
     
+    private let usersPresenter = UsersPresenter()
+    
+    private var users: [UserUI] = [] {
+        didSet {
+            reloadTableView()
+        }
+    }
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
-        searchBar.isHidden = true
-        searchBar.backgroundImage = UIImage()
-        spinner.startAnimating()
-        userPresenter.getUsersList { [weak self] data in
-            switch(data) {
-            case let .success(users):
-                guard let welf = self else { return }
-                welf.users = users
-                DispatchQueue.main.async {
-                    welf.tableView.reloadData()
-                    welf.spinner.stopAnimating()
-                    welf.spinner.isHidden = true
-                    welf.searchBar.isHidden = false
-                }
-            case let .failed(error):
-                print("error:", error)
-            }
-        }
-        let nib = UINib(nibName: "UserTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "UserTableViewCell")
+        usersPresenter.setUserInputDelegate(delegate: self)
+        usersPresenter.getUsersData()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -60,11 +45,41 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        userPresenter.filterUsers(searchText: searchText) { result in
+        usersPresenter.filterUsers(searchText: searchText) { result in
             self.users = result
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
-            }
+        }
+    }
+}
+
+extension UsersTableViewController: UsersViewDelegate {
+    
+    func setInitialState() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        searchBar.delegate = self
+        searchBar.isHidden = true
+        searchBar.backgroundImage = UIImage()
+        spinner.startAnimating()
+        let nib = UINib(nibName: "UserTableViewCell", bundle: nil)
+        tableView.register(nib, forCellReuseIdentifier: "UserTableViewCell")
+    }
+    
+    func setupData(with users: [UserUI]) {
+        self.users = users
+        setLoadedState()
+    }
+    
+    func setLoadedState() {
+        DispatchQueue.main.async {
+            self.spinner.stopAnimating()
+            self.spinner.isHidden = true
+            self.searchBar.isHidden = false
+        }
+    }
+    
+    func reloadTableView() {
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
     }
 }

@@ -6,40 +6,36 @@
 //
 
 import Foundation
+import UIKit
 
 class UsersPresenter {
     
-    private var cachedUsers: [UserUI] = []
+    private weak var usersInputDelegate: UsersViewDelegate?
+    private var networkManager: NetworkManager!
     
-    func getUsersList(result: @escaping (_ data: NetworkEnum) -> ()) {
-        if (cachedUsers.isEmpty) {
-            loadUsersFromNetwork(result: result)
-        } else {
-            result(NetworkEnum.success(users: cachedUsers))
-        }
+    func setUserInputDelegate(delegate: UsersViewDelegate) {
+        self.usersInputDelegate = delegate
+        self.usersInputDelegate?.setInitialState()
     }
     
-    private func loadUsersFromNetwork(result: @escaping (_ data: NetworkEnum) -> ()) {
-        if let url = URL(string: "https://run.mocky.io/v3/c902289c-02a7-4d19-a713-f5a8a90548fe") {
-            URLSession.shared.dataTask(with: url) { data, response, error in
-                if let data = data {
-                    do {
-                        let users = try JSONDecoder().decode([UserEntity].self, from: data)
-                        var usersUI: [UserUI] = []
-                        users.forEach { user in
-                            URL(string: user.image)?.loadImageFromUrl(result: { data in
-                                usersUI.append(user.toUserUIModel(imageData: data))
-                                if (users.count == usersUI.count) {
-                                    self.cachedUsers = usersUI
-                                    result(NetworkEnum.success(users: usersUI))
-                                }
-                            })
-                        }
-                    } catch {
-                        print(error)
-                    }
-                }
-            }.resume()
+    init() {
+        self.networkManager = NetworkManager()
+    }
+    
+    private var cachedUsers: [UserUI] = []
+    
+    func getUsersData() {
+        networkManager.getUsersList { [weak self] data in
+            guard let self = self else { return }
+            switch(data) {
+            case .success(let users):
+                let sorted = users.sortedByName()
+                self.cachedUsers = sorted
+                self.usersInputDelegate?.setupData(with: sorted)
+                print("success:", users)
+            case .failed(let error):
+                print("error:", error)
+            }
         }
     }
     
@@ -47,9 +43,7 @@ class UsersPresenter {
         if (searchText.isEmpty) {
             result(cachedUsers)
         } else {
-            result(cachedUsers.filter { user in
-                user.name.lowercased().contains(searchText.lowercased())
-            })
+            result(cachedUsers.filteredAndSortedByPredicate(predicate: searchText))
         }
     }
 }
