@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "80C8334B-43CF-4E66-8697-ED8D1CAFAC4A"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UsersListPlaceholder/UI/UserTableViewCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "9"
+            endingLineNumber = "9"
+            landmarkName = "unknown"
+            landmarkType = "0">
+            <Locations>
+               <Location
+                  uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD - fe5c3983d41fc1ca"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UsersListPlaceholder.UserTableViewCell.__allocating_init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; UsersListPlaceholder.UserTableViewCell"
+                  moduleName = "UsersListPlaceholder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivankopylov/XcodeProjects/My/UsersListPlaceholder/UsersListPlaceholder/UI/UserTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "28">
+               </Location>
+               <Location
+                  uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD - 7f8bbe99f7182450"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UsersListPlaceholder.UserTableViewCell.init(style: __C.UITableViewCellStyle, reuseIdentifier: Swift.Optional&lt;Swift.String&gt;) -&gt; UsersListPlaceholder.UserTableViewCell"
+                  moduleName = "UsersListPlaceholder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivankopylov/XcodeProjects/My/UsersListPlaceholder/UsersListPlaceholder/UI/UserTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD - ecd011a48a25e1e9"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UsersListPlaceholder.UserTableViewCell.__allocating_init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;UsersListPlaceholder.UserTableViewCell&gt;"
+                  moduleName = "UsersListPlaceholder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivankopylov/XcodeProjects/My/UsersListPlaceholder/UsersListPlaceholder/UI/UserTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "20">
+               </Location>
+               <Location
+                  uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD - 57688150b408dbc8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UsersListPlaceholder.UserTableViewCell.init(coder: __C.NSCoder) -&gt; Swift.Optional&lt;UsersListPlaceholder.UserTableViewCell&gt;"
+                  moduleName = "UsersListPlaceholder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivankopylov/XcodeProjects/My/UsersListPlaceholder/UsersListPlaceholder/UI/UserTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "72">
+               </Location>
+               <Location
+                  uuid = "E4748F1A-6792-4705-BC3D-87F5054749CD - 7e6d1ed245e37b2c"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "UsersListPlaceholder.UserTableViewCell.__deallocating_deinit"
+                  moduleName = "UsersListPlaceholder"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ivankopylov/XcodeProjects/My/UsersListPlaceholder/UsersListPlaceholder/UI/UserTableViewCell.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "16">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>
