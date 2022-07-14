@@ -13,7 +13,7 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
     @IBOutlet private var searchBar: UISearchBar!
     @IBOutlet private var tableView: UITableView!
     
-    private let usersPresenter = UsersPresenter()
+    private var usersPresenter: UsersPresenter!
     
     private var users: [UserUI] = [] {
         didSet {
@@ -23,8 +23,8 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        usersPresenter.setUserInputDelegate(delegate: self)
-        usersPresenter.getUsersData()
+        usersPresenter = UsersPresenter(view: self)
+        usersPresenter.loadUsers()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -51,7 +51,7 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
 }
 
-extension UsersTableViewController: UsersViewDelegate {
+extension UsersTableViewController: UsersViewProtocol {
     
     func setInitialState() {
         tableView.delegate = self

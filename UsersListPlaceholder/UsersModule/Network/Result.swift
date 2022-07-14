@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkEnum {
+enum Result {
     case success(users: [UserUI])
     case failed(error: String)
 }
