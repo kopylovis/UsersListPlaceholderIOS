@@ -9,14 +9,30 @@ import UIKit
 
 class UserTableViewCell: UITableViewCell {
     
-    @IBOutlet private var userName: UILabel!
-    @IBOutlet private var userImage: UIImageView!
+    private let userName = UILabel()
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        userImage.layer.cornerRadius = userImage.frame.size.width / 2
+    private let userImage = UIImageView()
+    
+    private func setupUI() {
+        addSubview(userImage)
+        addSubview(userName)
         userImage.clipsToBounds = true
+        userImage.translatesAutoresizingMaskIntoConstraints = false
         userImage.backgroundColor = .gray
+        userImage.frame.size.width = 64
+        userImage.layer.cornerRadius = (userImage.frame.width) / 2
+        userName.textColor = .black
+        userName.translatesAutoresizingMaskIntoConstraints = false
+        userName.sizeToFit()
+    }
+    
+    private func setupConstraints() {
+        userImage.widthAnchor.constraint(equalToConstant: 64).isActive = true
+        userImage.heightAnchor.constraint(equalToConstant: 64).isActive = true
+        userImage.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+        userImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        userName.leftAnchor.constraint(equalTo: userImage.rightAnchor, constant: 20).isActive = true
+        userName.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
     func bindUser(user: UserUI?) {
@@ -26,4 +42,13 @@ class UserTableViewCell: UITableViewCell {
         }
     }
     
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: .default, reuseIdentifier: reuseIdentifier)
+        setupUI()
+        setupConstraints()
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

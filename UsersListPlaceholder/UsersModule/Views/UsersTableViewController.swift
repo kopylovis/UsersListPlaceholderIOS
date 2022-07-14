@@ -31,7 +31,7 @@ class UsersTableViewController: UIViewController {
         table.translatesAutoresizingMaskIntoConstraints = false
         table.delegate = self
         table.dataSource = self
-        table.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserTableViewCell")
+        table.register(UserTableViewCell.self, forCellReuseIdentifier: "UserTableViewCell")
         table.frame = view.frame
         return table
     }()
