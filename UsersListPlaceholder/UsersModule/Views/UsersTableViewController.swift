@@ -7,13 +7,36 @@
 
 import UIKit
 
-class UsersTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class UsersTableViewController: UIViewController {
     
-    @IBOutlet private var spinner: UIActivityIndicatorView!
-    @IBOutlet private var searchBar: UISearchBar!
-    @IBOutlet private var tableView: UITableView!
+    private let spinner: UIActivityIndicatorView = {
+        let spinner = UIActivityIndicatorView()
+        spinner.translatesAutoresizingMaskIntoConstraints = false
+        return spinner
+    }()
     
-    private var usersPresenter: UsersPresenter!
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.sizeToFit()
+        searchBar.placeholder = "Enter user's name..."
+        searchBar.searchBarStyle = .prominent
+        searchBar.delegate = self
+        return searchBar
+    }()
+    
+    private lazy var usersTableView: UITableView = {
+        let table = UITableView()
+        table.backgroundColor = .white
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.delegate = self
+        table.dataSource = self
+        table.register(UINib(nibName: "UserTableViewCell", bundle: nil), forCellReuseIdentifier: "UserTableViewCell")
+        table.frame = view.frame
+        return table
+    }()
+    
+    var usersPresenter: UsersPresenter!
     
     private var users: [UserUI] = [] {
         didSet {
@@ -23,9 +46,39 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
         
     override func viewDidLoad() {
         super.viewDidLoad()
-        usersPresenter = UsersPresenter(view: self)
+        view.backgroundColor = .white
+        setupViews()
+        setupConstraints()
         usersPresenter.loadUsers()
     }
+    
+    private func setupViews() {
+        navigationItem.titleView = searchBar
+        title = "Users"
+        view.addSubview(usersTableView)
+        view.addSubview(spinner)
+    }
+    
+    private func setupConstraints() {
+        NSLayoutConstraint.activate([
+            spinner.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            spinner.centerYAnchor.constraint(equalTo: view.centerYAnchor)
+        ])
+    }
+    
+}
+
+extension UsersTableViewController: UISearchBarDelegate {
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        usersPresenter.filterUsers(searchText: searchText) { result in
+            self.users = result
+        }
+    }
+    
+}
+
+extension UsersTableViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return users.count
@@ -38,30 +91,22 @@ class UsersTableViewController: UIViewController, UITableViewDelegate, UITableVi
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if let detailViewController = storyboard?.instantiateViewController(withIdentifier: "Detail") as? UserDetailsViewController {
-            detailViewController.user = users[indexPath.row]
-            navigationController?.pushViewController(detailViewController, animated: true)
-        }
+        let userDetailViewController = UserDetailsViewController()
+        userDetailViewController.user = users[indexPath.row]
+        navigationController?.pushViewController(userDetailViewController, animated: true)
     }
     
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        usersPresenter.filterUsers(searchText: searchText) { result in
-            self.users = result
-        }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return view.frame.size.height / 10
     }
 }
 
 extension UsersTableViewController: UsersViewProtocol {
     
     func setInitialState() {
-        tableView.delegate = self
-        tableView.dataSource = self
-        searchBar.delegate = self
-        searchBar.isHidden = true
-        searchBar.backgroundImage = UIImage()
         spinner.startAnimating()
-        let nib = UINib(nibName: "UserTableViewCell", bundle: nil)
-        tableView.register(nib, forCellReuseIdentifier: "UserTableViewCell")
+        spinner.isHidden = false
+        searchBar.isHidden = true
     }
     
     func setupData(with users: [UserUI]) {
@@ -79,7 +124,7 @@ extension UsersTableViewController: UsersViewProtocol {
     
     func reloadTableView() {
         DispatchQueue.main.async {
-            self.tableView.reloadData()
+            self.usersTableView.reloadData()
         }
     }
 }

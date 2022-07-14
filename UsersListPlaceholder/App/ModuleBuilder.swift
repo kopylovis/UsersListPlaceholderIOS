@@ -9,7 +9,13 @@ import Foundation
 import UIKit
 
 protocol Builder {
+    
+    static func createNavigateionController(rootViewController: UIViewController) -> UINavigationController
+    
     static func createUsersModule() -> UIViewController
+    
+    static func createUserDetailsController() -> UIViewController
+    
 }
 
 class ModuleBuilder: Builder {
@@ -20,8 +26,12 @@ class ModuleBuilder: Builder {
     
     static func createUsersModule() -> UIViewController {
         let view = UsersTableViewController()
-//        let presenter = UsersPresenter(view: view)
-//        view.usersPresenter = presenter
+        let presenter = UsersPresenter(view: view)
+        view.usersPresenter = presenter
         return view
+    }
+    
+    static func createUserDetailsController() -> UIViewController {
+        return UserDetailsViewController()
     }
 }
