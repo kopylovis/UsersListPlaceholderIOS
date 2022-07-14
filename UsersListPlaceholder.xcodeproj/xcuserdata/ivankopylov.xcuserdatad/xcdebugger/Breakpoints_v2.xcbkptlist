@@ -100,16 +100,32 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "504DC04C-5B0D-4CCA-9836-09A664A6F9FA"
+            uuid = "009F7046-91CD-4B58-BED0-873A81143064"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "UsersListPlaceholder/Views/UsersTableViewController.swift"
+            filePath = "UsersListPlaceholder/Managers/NetworkManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "searchBar(_:textDidChange:)"
+            startingLineNumber = "31"
+            endingLineNumber = "31"
+            landmarkName = "NetworkManager"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2ADF49E8-FB0F-48DC-BB2E-87D60A92E737"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "UsersListPlaceholder/Managers/NetworkManager.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "32"
+            endingLineNumber = "32"
+            landmarkName = "loadUsersFromNetwork(result:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

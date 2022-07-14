@@ -19,6 +19,15 @@ class NetworkManager {
         }
     }
     
+//    private func loadUsersFromNetwork(result: @escaping (_ data: NetworkEnum) -> ()) {
+//        AF.request("https://run.mocky.io/v3/c902289c-02a7-4d19-a713-f5a8a90548fe").responseDecodable(of: [UserEntity].self) { response in
+//        }
+//    }
+//
+    private func loadAvatarsForUsers(response: [UserEntity], result: @escaping (_ data: NetworkEnum) -> ()) {
+        
+    }
+    
     private func loadUsersFromNetwork(result: @escaping (_ data: NetworkEnum) -> ()) {
         if let url = URL(string: "https://run.mocky.io/v3/c902289c-02a7-4d19-a713-f5a8a90548fe") {
             URLSession.shared.dataTask(with: url) { data, response, error in
