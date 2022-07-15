@@ -15,7 +15,7 @@ class UsersRepository {
     
     private var usersProvider: MoyaProvider<UsersService> = MoyaProvider()
         
-    private var cachedUsers: [UserUI] = []
+    var cachedUsers: [UserUI] = []
     
     func loadUsersFromNetwork(resultData: @escaping (_ data: Result) -> ()) {
         var usersEntity: [UserEntity] = []

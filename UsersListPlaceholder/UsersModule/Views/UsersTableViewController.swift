@@ -91,9 +91,7 @@ extension UsersTableViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let userDetailViewController = UserDetailsViewController()
-        userDetailViewController.user = users[indexPath.row]
-        navigationController?.pushViewController(userDetailViewController, animated: true)
+        usersPresenter.onUserClickListener(user: users[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

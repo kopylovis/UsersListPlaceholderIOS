@@ -15,6 +15,7 @@ protocol UsersViewProtocol: AnyObject {
 }
 
 protocol UsersViewPresenterProtocol: AnyObject {
-    init(view: UsersViewProtocol)
+    init(view: UsersViewProtocol, usersRepository: UsersRepository, router: RouterProtocol)
     func loadUsers()
+    func onUserClickListener(user: UserUI?)
 }

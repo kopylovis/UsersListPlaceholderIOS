@@ -8,30 +8,28 @@
 import Foundation
 import UIKit
 
-protocol Builder {
+protocol BuilderProtocol {
+        
+    func createUsersTableViewController(router: RouterProtocol) -> UIViewController
     
-    static func createNavigateionController(rootViewController: UIViewController) -> UINavigationController
-    
-    static func createUsersModule() -> UIViewController
-    
-    static func createUserDetailsController() -> UIViewController
+    func createUserDetailsController(router: RouterProtocol, user: UserUI?) -> UIViewController
     
 }
 
-class ModuleBuilder: Builder {
+class ModuleBuilder: BuilderProtocol {
     
-    static func createNavigateionController(rootViewController: UIViewController) -> UINavigationController {
-        return UINavigationController(rootViewController: rootViewController)
-    }
-    
-    static func createUsersModule() -> UIViewController {
+    func createUsersTableViewController(router: RouterProtocol) -> UIViewController {
         let view = UsersTableViewController()
-        let presenter = UsersPresenter(view: view)
+        let usersRepository = UsersRepository.sharedInstance
+        let presenter = UsersPresenter(view: view, usersRepository: usersRepository, router: router)
         view.usersPresenter = presenter
         return view
     }
     
-    static func createUserDetailsController() -> UIViewController {
-        return UserDetailsViewController()
+    func createUserDetailsController(router: RouterProtocol, user: UserUI?) -> UIViewController {
+        let view = UserDetailsViewController()
+        let presenter = UserDetailsPresenter(view: view, user: user)
+        view.presenter = presenter
+        return view
     }
 }

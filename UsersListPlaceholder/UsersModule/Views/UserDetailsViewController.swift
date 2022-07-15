@@ -9,6 +9,8 @@ import UIKit
 
 class UserDetailsViewController: UIViewController {
     
+    var presenter: UserDetailsPresenter!
+    
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -47,13 +49,11 @@ class UserDetailsViewController: UIViewController {
         return stackView
     }()
     
-    var user: UserUI?
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindUser()
         setupUI()
         setupConstraints()
+        presenter.loadUserDetails()
     }
     
     private func setupConstraints() {
@@ -73,14 +73,16 @@ class UserDetailsViewController: UIViewController {
         stackView.addArrangedSubview(emailView)
         self.view.addSubview(stackView)
     }
-    
-    private func bindUser() {
-        if let user = user {
-            imageView.image = UIImage(data: user.image)
-            nameView.text = user.name
-            emailView.text = user.email
-            self.title = "\(user.name)'s profile"
-        }
-    }
 
+}
+
+extension UserDetailsViewController: UserDetailsViewProtocol {
+    
+    func setupData(user: UserUI) {
+        imageView.image = UIImage(data: user.image)
+        nameView.text = user.name
+        emailView.text = user.email
+        self.title = "\(user.name)'s profile"
+    }
+    
 }
