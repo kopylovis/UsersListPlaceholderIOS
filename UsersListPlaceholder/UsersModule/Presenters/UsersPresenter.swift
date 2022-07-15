@@ -11,7 +11,7 @@ import UIKit
 class UsersPresenter: UsersViewPresenterProtocol {
     
     private weak var view: UsersViewProtocol?
-    private var usersRepository: UsersRepository?
+    private var usersRepository: UsersRepositoryProtocol?
     private var router: RouterUsersProtocol?
     
     required init(view: UsersViewProtocol, usersRepository: UsersRepository, router: RouterUsersProtocol) {
@@ -36,17 +36,11 @@ class UsersPresenter: UsersViewPresenterProtocol {
         }
     }
         
-    func filterUsers(searchText: String, result: @escaping (_ users: [UserUI]) -> ()) {
-        if let cachedUsers = usersRepository?.cachedUsers {
-            if (searchText.isEmpty) {
-                result(cachedUsers)
-            } else {
-                result(cachedUsers.filteredAndSortedByPredicate(predicate: searchText))
-            }
-        }
+    func filterUsers(searchText: String) -> [UserEntity]? {
+        return usersRepository?.filterUsersByPredicate(predicate: searchText)
     }
     
-    func onUserClickListener(user: UserUI?) {
+    func onUserClickListener(user: UserEntity?) {
         router?.showUserDetails(user: user)
     }
     

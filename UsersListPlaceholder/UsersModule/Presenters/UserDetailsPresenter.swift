@@ -10,9 +10,9 @@ import Foundation
 class UserDetailsPresenter: UserDetailsViewPresenterProtocol {
     
     private weak var view: UserDetailsViewProtocol?
-    private var user: UserUI?
+    private var user: UserEntity?
     
-    required init(view: UserDetailsViewProtocol, user: UserUI?) {
+    required init(view: UserDetailsViewProtocol, user: UserEntity?) {
         self.view = view
         self.user = user
     }

@@ -12,5 +12,11 @@ struct UserEntity: Decodable {
     let name: String
     let username: String
     let email: String
-    let image: String
+    let image: Data?
+}
+
+extension UserEntity {
+    func setImageData(data: Data) -> UserEntity {
+        return UserEntity(id: self.id, name: self.name, username: self.username, email: self.email, image: data)
+    }
 }

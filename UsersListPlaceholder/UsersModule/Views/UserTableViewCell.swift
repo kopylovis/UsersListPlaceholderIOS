@@ -35,10 +35,11 @@ class UserTableViewCell: UITableViewCell {
         userName.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
     }
     
-    func bindUser(user: UserUI?) {
+    func bindUser(user: UserEntity?) {
         if let user = user {
             userName.text = user.name
-            userImage.image = UIImage(data: user.image)
+            guard let image = user.image else { return }
+            userImage.image = UIImage(data: image)
         }
     }
     

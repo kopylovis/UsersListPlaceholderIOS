@@ -8,6 +8,6 @@
 import Foundation
 
 enum Result {
-    case success(users: [UserUI])
+    case success(users: [UserEntity])
     case failed(error: String)
 }

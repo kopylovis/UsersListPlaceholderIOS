@@ -11,11 +11,11 @@ protocol UsersViewProtocol: AnyObject {
     func setInitialState()
     func setLoadedState()
     func reloadTableView()
-    func setupData(with users: [UserUI])
+    func setupData(with users: [UserEntity])
 }
 
 protocol UsersViewPresenterProtocol: AnyObject {
     init(view: UsersViewProtocol, usersRepository: UsersRepository, router: RouterUsersProtocol)
     func loadUsers()
-    func onUserClickListener(user: UserUI?)
+    func onUserClickListener(user: UserEntity?)
 }

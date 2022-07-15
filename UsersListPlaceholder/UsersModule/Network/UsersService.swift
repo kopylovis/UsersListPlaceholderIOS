@@ -10,6 +10,7 @@ import Moya
 
 enum UsersService {
     case loadUsers
+    case loadRandomAvatar
 }
 
 extension UsersService: TargetType {
@@ -18,30 +19,35 @@ extension UsersService: TargetType {
         switch self {
         case .loadUsers:
             return URL(string: "https://run.mocky.io/v3")!
+        case .loadRandomAvatar:
+            return URL(string: "https://i.pravatar.cc")!
         }
     }
     
     var path: String {
         switch self {
-        case .loadUsers: return "/c902289c-02a7-4d19-a713-f5a8a90548fe"
+        case .loadUsers:
+            return "/80b32399-9b79-4b51-a5b9-b87d3a690d84"
+        case .loadRandomAvatar:
+            return "/300"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .loadUsers:
+        case .loadUsers, .loadRandomAvatar:
             return .get
         }
     }
     
     var task: Task {
         switch self {
-        case .loadUsers: return .requestPlain
+        case .loadUsers, .loadRandomAvatar: return .requestPlain
         }
     }
     
     var headers: [String : String]? {
         return ["Content-type": "application/json"]
     }
-        
+    
 }

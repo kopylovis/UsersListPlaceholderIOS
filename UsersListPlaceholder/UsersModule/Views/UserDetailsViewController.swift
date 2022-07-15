@@ -78,8 +78,10 @@ class UserDetailsViewController: UIViewController {
 
 extension UserDetailsViewController: UserDetailsViewProtocol {
     
-    func setupData(user: UserUI) {
-        imageView.image = UIImage(data: user.image)
+    func setupData(user: UserEntity) {
+        if let image = user.image {
+            imageView.image = UIImage(data: image)
+        }
         nameView.text = user.name
         emailView.text = user.email
         self.title = "\(user.name)'s profile"

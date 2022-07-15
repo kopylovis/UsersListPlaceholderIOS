@@ -9,7 +9,7 @@ import Foundation
 
 extension UserEntity {
     
-    func toUserUIModel(imageData: Data) -> UserUI {
+    func toUserUIModel(imageData: Data) -> UserEntity {
         return UserUI(id: self.id, name: self.name, username: self.username, email: self.email, image: imageData)
     }
 }

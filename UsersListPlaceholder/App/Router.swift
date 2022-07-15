@@ -14,7 +14,7 @@ protocol RouterProtocol {
 
 protocol RouterUsersProtocol: RouterProtocol {
     func initialViewController()
-    func showUserDetails(user: UserUI?)
+    func showUserDetails(user: UserEntity?)
     func popToRoot()
 }
 
@@ -36,7 +36,7 @@ class RouterUsers: RouterUsersProtocol {
         }
     }
     
-    func showUserDetails(user: UserUI?) {
+    func showUserDetails(user: UserEntity?) {
         if let navigationController = navigationController {
             guard let userDetailsViewController = builder?.createUserDetailsController(router: self, user: user) else { return }
             navigationController.pushViewController(userDetailsViewController, animated: true)

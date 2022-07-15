@@ -38,7 +38,7 @@ class UsersTableViewController: UIViewController {
     
     var usersPresenter: UsersPresenter!
     
-    private var users: [UserUI] = [] {
+    private var users: [UserEntity] = [] {
         didSet {
             reloadTableView()
         }
@@ -71,8 +71,8 @@ class UsersTableViewController: UIViewController {
 extension UsersTableViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        usersPresenter.filterUsers(searchText: searchText) { result in
-            self.users = result
+        if let users = usersPresenter.filterUsers(searchText: searchText) {
+            self.users = users
         }
     }
     
@@ -107,7 +107,7 @@ extension UsersTableViewController: UsersViewProtocol {
         searchBar.isHidden = true
     }
     
-    func setupData(with users: [UserUI]) {
+    func setupData(with users: [UserEntity]) {
         self.users = users
         setLoadedState()
     }

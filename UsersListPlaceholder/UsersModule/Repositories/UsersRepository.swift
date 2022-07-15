@@ -9,13 +9,16 @@ import Foundation
 import Alamofire
 import Moya
 
-class UsersRepository {
-    
-    static let sharedInstance = UsersRepository()
-    
-    private var usersProvider: MoyaProvider<UsersService> = MoyaProvider()
+protocol UsersRepositoryProtocol {
+    func loadUsersFromNetwork(resultData: @escaping (_ data: Result) -> ())
+    func filterUsersByPredicate(predicate: String) -> [UserEntity]
+}
+
+class UsersRepository: UsersRepositoryProtocol {
         
-    var cachedUsers: [UserUI] = []
+    private var usersProvider: MoyaProvider<UsersService> = MoyaProvider()
+            
+    private var cachedUsers: [UserEntity] = []
     
     func loadUsersFromNetwork(resultData: @escaping (_ data: Result) -> ()) {
         var usersEntity: [UserEntity] = []
@@ -26,12 +29,25 @@ class UsersRepository {
         }
     }
     
-    func loadImagesForUsers(users: [UserEntity], result: @escaping (_ data: Result) -> ()) {
-        users.forEach { user in
-            user.image.downloadImage { [weak self] data in
-                guard let self = self else { return }
-                self.cachedUsers.append(user.toUserUIModel(imageData: data))
-                result(Result.success(users: self.cachedUsers))
+    func filterUsersByPredicate(predicate: String) -> [UserEntity] {
+        if (predicate.isEmpty) {
+            return cachedUsers.sortedByName()
+        } else {
+            return cachedUsers.filteredAndSortedByPredicate(predicate: predicate)
+        }
+    }
+    
+    private func loadImagesForUsers(users: [UserEntity], result: @escaping (_ data: Result) -> ()) {
+        users.forEach { [weak self] user in
+            guard let self = self else { return }
+            usersProvider.request(.loadRandomAvatar) { event in
+                switch event {
+                case let .success(response):
+                    self.cachedUsers.append(user.setImageData(data: response.data))
+                    result(Result.success(users: self.cachedUsers.sortedByName()))
+                case let .failure(error):
+                    print(error)
+                }
             }
         }
     }

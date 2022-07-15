@@ -8,10 +8,10 @@
 import Foundation
 
 protocol UserDetailsViewProtocol: AnyObject {
-    func setupData(user: UserUI)
+    func setupData(user: UserEntity)
 }
 
 protocol UserDetailsViewPresenterProtocol: AnyObject {
-    init(view: UserDetailsViewProtocol, user: UserUI?)
+    init(view: UserDetailsViewProtocol, user: UserEntity?)
     func loadUserDetails()
 }

@@ -12,7 +12,7 @@ protocol BuilderProtocol {
         
     func createUsersTableViewController(router: RouterUsersProtocol) -> UIViewController
     
-    func createUserDetailsController(router: RouterUsersProtocol, user: UserUI?) -> UIViewController
+    func createUserDetailsController(router: RouterUsersProtocol, user: UserEntity?) -> UIViewController
     
 }
 
@@ -20,13 +20,13 @@ class ModuleBuilder: BuilderProtocol {
     
     func createUsersTableViewController(router: RouterUsersProtocol) -> UIViewController {
         let view = UsersTableViewController()
-        let usersRepository = UsersRepository.sharedInstance
+        let usersRepository = UsersRepository()
         let presenter = UsersPresenter(view: view, usersRepository: usersRepository, router: router)
         view.usersPresenter = presenter
         return view
     }
     
-    func createUserDetailsController(router: RouterUsersProtocol, user: UserUI?) -> UIViewController {
+    func createUserDetailsController(router: RouterUsersProtocol, user: UserEntity?) -> UIViewController {
         let view = UserDetailsViewController()
         let presenter = UserDetailsPresenter(view: view, user: user)
         view.presenter = presenter
