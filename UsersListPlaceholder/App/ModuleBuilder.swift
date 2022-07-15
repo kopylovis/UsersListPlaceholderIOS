@@ -10,15 +10,15 @@ import UIKit
 
 protocol BuilderProtocol {
         
-    func createUsersTableViewController(router: RouterProtocol) -> UIViewController
+    func createUsersTableViewController(router: RouterUsersProtocol) -> UIViewController
     
-    func createUserDetailsController(router: RouterProtocol, user: UserUI?) -> UIViewController
+    func createUserDetailsController(router: RouterUsersProtocol, user: UserUI?) -> UIViewController
     
 }
 
 class ModuleBuilder: BuilderProtocol {
     
-    func createUsersTableViewController(router: RouterProtocol) -> UIViewController {
+    func createUsersTableViewController(router: RouterUsersProtocol) -> UIViewController {
         let view = UsersTableViewController()
         let usersRepository = UsersRepository.sharedInstance
         let presenter = UsersPresenter(view: view, usersRepository: usersRepository, router: router)
@@ -26,7 +26,7 @@ class ModuleBuilder: BuilderProtocol {
         return view
     }
     
-    func createUserDetailsController(router: RouterProtocol, user: UserUI?) -> UIViewController {
+    func createUserDetailsController(router: RouterUsersProtocol, user: UserUI?) -> UIViewController {
         let view = UserDetailsViewController()
         let presenter = UserDetailsPresenter(view: view, user: user)
         view.presenter = presenter

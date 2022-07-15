@@ -12,9 +12,9 @@ class UsersPresenter: UsersViewPresenterProtocol {
     
     private weak var view: UsersViewProtocol?
     private var usersRepository: UsersRepository?
-    private var router: RouterProtocol?
+    private var router: RouterUsersProtocol?
     
-    required init(view: UsersViewProtocol, usersRepository: UsersRepository, router: RouterProtocol) {
+    required init(view: UsersViewProtocol, usersRepository: UsersRepository, router: RouterUsersProtocol) {
         self.view = view
         self.usersRepository = usersRepository
         self.router = router

@@ -7,18 +7,18 @@
 
 import UIKit
 
-protocol RouterUsersProtocol {
+protocol RouterProtocol {
     var navigationController: UINavigationController? { get set }
     var builder: BuilderProtocol? { get set }
 }
 
-protocol RouterProtocol: RouterUsersProtocol {
+protocol RouterUsersProtocol: RouterProtocol {
     func initialViewController()
     func showUserDetails(user: UserUI?)
     func popToRoot()
 }
 
-class RouterUsers: RouterProtocol {
+class RouterUsers: RouterUsersProtocol {
     
     var navigationController: UINavigationController?
     
